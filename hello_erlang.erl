@@ -25,7 +25,7 @@ pong() ->
     end.
 
 start_pong() ->
-    register(pong, spawn(tut17, pong, [])).
+    register(pong, spawn(hello_erlang, pong, [])).
 
 start_ping(Pong_Node) ->
     spawn(tut17, ping, [3, Pong_Node]).
