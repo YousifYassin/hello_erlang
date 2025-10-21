@@ -1,11 +1,9 @@
 -module(hello_erlang).
-
--export([start_ping/1, start_pong/0,  ping/2, pong/0]).
+-export([start/1, ping/2, pong/0]).
 
 ping(0, Pong_Node) ->
     {pong, Pong_Node} ! finished,
     io:format("ping finished~n", []);
-
 ping(N, Pong_Node) ->
     {pong, Pong_Node} ! {ping, self()},
     receive
@@ -24,8 +22,6 @@ pong() ->
             pong()
     end.
 
-start_pong() ->
-    register(pong, spawn(hello_erlang, pong, [])).
-
-start_ping(Pong_Node) ->
-    spawn(hello_erlang, ping, [3, Pong_Node]).
+start(Ping_Node) ->
+    register(pong, spawn(hello_erlang, pong, [])),
+    spawn(Ping_Node, hello_erlang, ping, [3, node()]).
