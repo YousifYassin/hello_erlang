@@ -1,0 +1,3 @@
+-record(person, {name::string(), gender::gender(), age::integer()}).
+-type gender() :: male | female.
+-type person() :: #person{}.
